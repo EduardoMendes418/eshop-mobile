@@ -29,8 +29,8 @@ export default function OnboardingScreen() {
       />
 
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>Bem vindo a eShop</Text>
-        <Text style={styles.subtitle}>Descubra produtos incríveis online</Text>
+        <Text style={styles.title}>Bem-vindo à eShop</Text>
+        <Text style={styles.subtitle}>onde descobrir é tão fácil quanto comprar!</Text>
         <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
           <LinearGradient
             colors={["#000000", "#434343"]}
