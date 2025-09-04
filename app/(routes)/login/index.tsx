@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -20,11 +15,19 @@ export default function LoginScreen() {
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
-          {/* Header */}
-          <View className="mt-16 mb-8">
-            <Text className="text-3xl font-poppins-bold text-gray-900 mb-2">
-              Welcome back
+          <View className="mt-16 mb-8" >
+            <Text  className="text-3xl font-poppins-bold text-gray-900 mb-2">
+              Bem-vindo de volta
             </Text>
+            <Text className="text-gray-500 font-poppins mb-2">
+              Entre na sua conta
+            </Text>
+          </View>
+
+          <View className="gap-6 mt-8">
+            <View className="mt-6">
+              <Text className="text-gray-800 text-base font-bold">Email</Text>
+            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

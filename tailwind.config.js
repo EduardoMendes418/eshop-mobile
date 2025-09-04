@@ -13,8 +13,7 @@ module.exports = {
         grayDark: "#1f2937",
       },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-        spaceMono: ["SpaceMono", "monospace"],
+        spacemono: ["SpaceMono"],
       },
     },
   },
