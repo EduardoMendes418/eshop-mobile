@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import "tailwindcss/tailwind.css";
 
 export default function _layout() {
   return (
