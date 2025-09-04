@@ -1,9 +1,31 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import { Controller, useForm } from "react-hook-form";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
 export default function LoginScreen() {
+  //login form
+  const loginForm = useForm<LoginFormData>({
+    mode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <KeyboardAvoidingView
@@ -15,8 +37,8 @@ export default function LoginScreen() {
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
-          <View className="mt-16 mb-8" >
-            <Text  className="text-3xl font-poppins-bold text-gray-900 mb-2">
+          <View className="mt-16 mb-8">
+            <Text className="text-3xl font-poppins-bold text-gray-900 mb-2">
               Bem-vindo de volta
             </Text>
             <Text className="text-gray-500 font-poppins mb-2">
@@ -27,6 +49,49 @@ export default function LoginScreen() {
           <View className="gap-6 mt-8">
             <View className="mt-6">
               <Text className="text-gray-800 text-base font-bold">Email</Text>
+              <Controller
+                control={loginForm.control}
+                name="email"
+                rules={{
+                  required: "E-mail é obrigatório",
+                  pattern: {
+                    value: /^[^\s@]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+                    message: "Por favor, insira um e-mail válido",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                    <View
+                      className={`flex-row items-center bg-gray-50 rounded-xl px-4 border ${
+                        loginForm.formState.errors.email
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                    >
+                      <MaterialCommunityIcons
+                        name="email-outline"
+                        size={20}
+                        color={"#9CA3AF"}
+                      />
+                      <TextInput
+                        className="flex-1 ml-3 text-gray-800 font-poppins"
+                        placeholder="Digite seu e-mail"
+                        placeholderTextColor="#9CA3AF"
+                        value={value}
+                        onChangeText={onChange}
+                        onBlur={onBlur}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                      />
+                    </View>
+                    {loginForm.formState.errors.email && (
+                      <Text className="text-red-500 text-sm font-poppins mt-1 ml-1">
+                        {loginForm.formState.errors.email.message}
+                      </Text>
+                    )}
+                  </>
+                )}
+              />
             </View>
           </View>
         </ScrollView>
