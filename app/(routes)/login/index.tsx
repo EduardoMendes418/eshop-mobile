@@ -1,11 +1,12 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   KeyboardAvoidingView,
   Platform,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -17,6 +18,7 @@ interface LoginFormData {
 }
 
 export default function LoginScreen() {
+  const [showPassword, setShowPassword] = useState(false);
   //login form
   const loginForm = useForm<LoginFormData>({
     mode: "onChange",
@@ -47,6 +49,7 @@ export default function LoginScreen() {
           </View>
 
           <View className="gap-6 mt-8">
+            {/*Email*/}
             <View className="mt-6">
               <Text className="text-gray-800 text-base font-bold">Email</Text>
               <Controller
@@ -82,6 +85,7 @@ export default function LoginScreen() {
                         onBlur={onBlur}
                         keyboardType="email-address"
                         autoCapitalize="none"
+                        //editable={!loginMutation.isLoading}
                       />
                     </View>
                     {loginForm.formState.errors.email && (
@@ -91,6 +95,72 @@ export default function LoginScreen() {
                     )}
                   </>
                 )}
+              />
+            </View>
+
+            {/*Password Filed*/}
+            <View className="mt-6">
+              <Text className="text-gray-800 text-base font-poppins-medium mb-3">
+                Senha
+              </Text>
+
+              <Controller
+                control={loginForm.control}
+                name="password"
+                rules={{
+                  required: "Senha é obrigatória",
+                  minLength: {
+                    value: 6,
+                    message: "A senha deve ter pelo menos 6 caracteres",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => {
+                  return (
+                    <>
+                      <View
+                        className={`flex-row items-center bg-gray-50 rounded-xl px-4 border ${
+                          loginForm.formState.errors.password
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        <MaterialCommunityIcons
+                          name="lock-outline"
+                          size={20}
+                          color="#9CA3AF"
+                        />
+                        <TextInput
+                          className="flex-1 ml-3 text-gray-800 font-poppins"
+                          placeholder="Digite sua senha"
+                          placeholderTextColor="#9CA3AF"
+                          secureTextEntry={!showPassword}
+                          value={value}
+                          onChangeText={onChange}
+                          onBlur={onBlur}
+                          // editable={!loginMutation.isLoading}
+                        />
+
+                        <TouchableOpacity
+                          onPress={() => setShowPassword(!showPassword)}
+                        >
+                          <MaterialCommunityIcons
+                            name={
+                              showPassword ? "eye-outline" : "eye-off-outline"
+                            }
+                            size={20}
+                            color="#9CA3AF"
+                          />
+                        </TouchableOpacity>
+                      </View>
+
+                      {loginForm.formState.errors.password && (
+                        <Text className="text-red-500 text-sm font-poppins mt-1 ml-1">
+                          {loginForm.formState.errors.password.message}
+                        </Text>
+                      )}
+                    </>
+                  );
+                }}
               />
             </View>
           </View>
