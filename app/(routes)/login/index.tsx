@@ -224,7 +224,12 @@ export default function LoginScreen() {
                 onPress={() => promptGoogle()}
                 className="w-14 h-14 rounded-full bg-red-500 items-center justify-center"
               >
-                <AntDesign name="google" size={28} color="white" />
+                <AntDesign
+                  name="google"
+                  size={28}
+                  color="white"
+                  testID="google-icon"
+                />
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -232,7 +237,12 @@ export default function LoginScreen() {
                 onPress={() => promptFb()}
                 className="w-14 h-14 rounded-full bg-blue-600 items-center justify-center"
               >
-                <FontAwesome name="facebook" size={28} color="white" />
+                <FontAwesome
+                  name="facebook"
+                  size={28}
+                  color="white"
+                  testID="facebook-icon"
+                />
               </TouchableOpacity>
             </View>
           </View>

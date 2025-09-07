@@ -71,4 +71,9 @@ describe("Login Screen E2E", () => {
       "be.visible"
     );
   });
+
+  it("should display Google and Facebook icons", () => {
+    cy.get('[data-testid="google-icon"]').should("exist");
+    cy.get('[data-testid="facebook-icon"]').should("exist");
+  });
 });
