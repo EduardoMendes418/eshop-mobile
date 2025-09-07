@@ -1,5 +1,12 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import {
+  AntDesign,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+import * as Facebook from "expo-auth-session/providers/facebook";
+import * as Google from "expo-auth-session/providers/google";
+import { router } from "expo-router";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   KeyboardAvoidingView,
@@ -19,7 +26,7 @@ interface LoginFormData {
 
 export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
-  //login form
+
   const loginForm = useForm<LoginFormData>({
     mode: "onChange",
     defaultValues: {
@@ -27,6 +34,28 @@ export default function LoginScreen() {
       password: "",
     },
   });
+
+  const [requestGoogle, responseGoogle, promptGoogle] = Google.useAuthRequest({
+    iosClientId: "<SUA_CLIENT_ID>.apps.googleusercontent.com",
+    androidClientId: "<SUA_CLIENT_ID>.apps.googleusercontent.com",
+    webClientId: "<SUA_CLIENT_ID>.apps.googleusercontent.com",
+  });
+
+  const [requestFb, responseFb, promptFb] = Facebook.useAuthRequest({
+    clientId: "<SEU_FACEBOOK_APP_ID>",
+  });
+
+  useEffect(() => {
+    if (responseGoogle?.type === "success") {
+      const { authentication } = responseGoogle;
+      console.log("Google token:", authentication?.accessToken);
+    }
+
+    if (responseFb?.type === "success") {
+      const { authentication } = responseFb;
+      console.log("Facebook token:", authentication?.accessToken);
+    }
+  }, [responseGoogle, responseFb]);
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -40,7 +69,7 @@ export default function LoginScreen() {
           showsVerticalScrollIndicator={false}
         >
           <View className="mt-16 mb-8">
-            <Text className="text-3xl font-poppins-bold text-gray-900 mb-2">
+            <Text className="text-3xl font-bold text-gray-900 mb-2">
               Bem-vindo de volta
             </Text>
             <Text className="text-gray-500 font-poppins mb-2">
@@ -49,9 +78,8 @@ export default function LoginScreen() {
           </View>
 
           <View className="gap-6 mt-8">
-            {/*Email*/}
             <View className="mt-6">
-              <Text className="text-gray-800 text-base font-bold">Email</Text>
+              <Text className="text-gray-600 text-base font-bold">Email</Text>
               <Controller
                 control={loginForm.control}
                 name="email"
@@ -98,9 +126,8 @@ export default function LoginScreen() {
               />
             </View>
 
-            {/*Password Filed*/}
             <View className="mt-6">
-              <Text className="text-gray-800 text-base font-poppins-medium mb-3">
+              <Text className="text-gray-600 text-base font-poppins-medium font-bold mb-3">
                 Senha
               </Text>
 
@@ -162,6 +189,51 @@ export default function LoginScreen() {
                   );
                 }}
               />
+              <TouchableOpacity
+                className="self-end mt-2"
+                onPress={() => router.push("/forgot-password")}
+                //disabled={loginMutation.isPending}
+              >
+                <Text className="text-blue-600 font-bold">
+                  Esqueceu sua senha?
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+              className={`rounded-xl py-4 mt-8 ${
+                loginForm.formState.isValid ? "bg-blue-600" : "bg-gray-300"
+              }`}
+              //disabled={!loginForm.formState.isValid}
+              //onPress={loginForm.handleSubmit(handleSubmit)} // agora chama a função
+            >
+              <Text className="text-white font-bold text-center text-base">
+                {"Entrar"}
+              </Text>
+            </TouchableOpacity>
+
+            <View className="flex-row items-center my-8">
+              <View className="flex-1 h-px bg-gray-300" />
+              <Text className="mx-4 text-gray-500 font-bold">ou entre com</Text>
+              <View className="flex-1 h-px bg-gray-300" />
+            </View>
+
+            <View className="flex-row justify-center space-x-6 mt-6">
+              <TouchableOpacity
+                disabled={!requestGoogle}
+                onPress={() => promptGoogle()}
+                className="w-14 h-14 rounded-full bg-red-500 items-center justify-center"
+              >
+                <AntDesign name="google" size={28} color="white" />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                disabled={!requestFb}
+                onPress={() => promptFb()}
+                className="w-14 h-14 rounded-full bg-blue-600 items-center justify-center"
+              >
+                <FontAwesome name="facebook" size={28} color="white" />
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
