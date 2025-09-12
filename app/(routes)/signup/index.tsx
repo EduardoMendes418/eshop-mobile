@@ -83,7 +83,7 @@ export default function SignUpScreen() {
           </View>
 
           <View className="gap-6 mt-8">
-            <View >
+            <View>
               <Text className="text-gray-600 text-base font-bold">Nome</Text>
               <Controller
                 control={signupForm.control}
@@ -127,7 +127,7 @@ export default function SignUpScreen() {
                 )}
               />
             </View>
-            <View >
+            <View>
               <Text className="text-gray-600 text-base font-bold">Email</Text>
               <Controller
                 control={signupForm.control}
@@ -175,7 +175,7 @@ export default function SignUpScreen() {
               />
             </View>
 
-            <View >
+            <View>
               <Text className="text-gray-600 text-base font-poppins-medium font-bold mb-3">
                 Senha
               </Text>
@@ -238,15 +238,6 @@ export default function SignUpScreen() {
                   );
                 }}
               />
-              <TouchableOpacity
-                className="self-end mt-2"
-                onPress={() => router.push("/forgot-password")}
-                //disabled={loginMutation.isPending}
-              >
-                <Text className="text-blue-600 font-bold">
-                  Esqueceu sua senha?
-                </Text>
-              </TouchableOpacity>
             </View>
 
             <TouchableOpacity
