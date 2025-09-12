@@ -3,7 +3,6 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import * as Facebook from "expo-auth-session/providers/facebook";
 import * as Google from "expo-auth-session/providers/google";
 import { router } from "expo-router";
@@ -20,16 +19,16 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-interface LoginFormData {
+interface SignUpFormData {
+  name: string;
   email: string;
   password: string;
 }
 
-export default function LoginScreen() {
+export default function SignUpScreen() {
   const [showPassword, setShowPassword] = useState(false);
-  const navigation = useNavigation();
 
-  const loginForm = useForm<LoginFormData>({
+  const signupForm = useForm<SignUpFormData>({
     mode: "onChange",
     defaultValues: {
       email: "",
@@ -59,9 +58,10 @@ export default function LoginScreen() {
     }
   }, [responseGoogle, responseFb]);
 
-  const handlerSignUpNavigation = () => {
-    router.push("/signup" as any);
+  const handlerLoginNavigation = () => {
+    router.push("/login" as any);
   };
+
   return (
     <SafeAreaView className="flex-1 bg-gray-100">
       <KeyboardAvoidingView
@@ -74,19 +74,63 @@ export default function LoginScreen() {
           showsVerticalScrollIndicator={false}
         >
           <View className="mt-16 mb-2">
-            <Text  className="text-3xl font-bold text-gray-900 mb-2">
-              Bem-vindo de volta
+            <Text className="text-3xl font-bold text-gray-900 mb-2">
+              Crie uma Conta
             </Text>
             <Text className="text-gray-500 font-poppins mb-2">
-              Entre na sua conta
+              Preencha os campos abaixo para se cadastrar
             </Text>
           </View>
 
           <View className="gap-6 mt-8">
             <View >
+              <Text className="text-gray-600 text-base font-bold">Nome</Text>
+              <Controller
+                control={signupForm.control}
+                name="name"
+                rules={{
+                  required: "Nome é obrigatório",
+                  minLength: {
+                    value: 3,
+                    message: "O nome deve ter pelo menos 3 caracteres",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                    <View
+                      className={`flex-row items-center bg-gray-50 rounded-xl px-4 border ${
+                        signupForm.formState.errors.name
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                    >
+                      <MaterialCommunityIcons
+                        name="account-outline"
+                        size={20}
+                        color={"#9CA3AF"}
+                      />
+                      <TextInput
+                        className="flex-1 ml-3 text-gray-800 font-poppins"
+                        placeholder="Digite seu nome"
+                        placeholderTextColor="#9CA3AF"
+                        value={value}
+                        onChangeText={onChange}
+                        onBlur={onBlur}
+                      />
+                    </View>
+                    {signupForm.formState.errors.name && (
+                      <Text className="text-red-500 text-sm font-poppins mt-1 ml-1">
+                        {signupForm.formState.errors.name.message}
+                      </Text>
+                    )}
+                  </>
+                )}
+              />
+            </View>
+            <View >
               <Text className="text-gray-600 text-base font-bold">Email</Text>
               <Controller
-                control={loginForm.control}
+                control={signupForm.control}
                 name="email"
                 rules={{
                   required: "E-mail é obrigatório",
@@ -99,7 +143,7 @@ export default function LoginScreen() {
                   <>
                     <View
                       className={`flex-row items-center bg-gray-50 rounded-xl px-4 border ${
-                        loginForm.formState.errors.email
+                        signupForm.formState.errors.email
                           ? "border-red-500"
                           : "border-gray-300"
                       }`}
@@ -121,9 +165,9 @@ export default function LoginScreen() {
                         //editable={!loginMutation.isLoading}
                       />
                     </View>
-                    {loginForm.formState.errors.email && (
+                    {signupForm.formState.errors.email && (
                       <Text className="text-red-500 text-sm font-poppins mt-1 ml-1">
-                        {loginForm.formState.errors.email.message}
+                        {signupForm.formState.errors.email.message}
                       </Text>
                     )}
                   </>
@@ -137,7 +181,7 @@ export default function LoginScreen() {
               </Text>
 
               <Controller
-                control={loginForm.control}
+                control={signupForm.control}
                 name="password"
                 rules={{
                   required: "Senha é obrigatória",
@@ -151,7 +195,7 @@ export default function LoginScreen() {
                     <>
                       <View
                         className={`flex-row items-center bg-gray-50 rounded-xl px-4 border ${
-                          loginForm.formState.errors.password
+                          signupForm.formState.errors.password
                             ? "border-red-500"
                             : "border-gray-300"
                         }`}
@@ -185,9 +229,9 @@ export default function LoginScreen() {
                         </TouchableOpacity>
                       </View>
 
-                      {loginForm.formState.errors.password && (
+                      {signupForm.formState.errors.password && (
                         <Text className="text-red-500 text-sm font-poppins mt-1 ml-1">
-                          {loginForm.formState.errors.password.message}
+                          {signupForm.formState.errors.password.message}
                         </Text>
                       )}
                     </>
@@ -207,10 +251,10 @@ export default function LoginScreen() {
 
             <TouchableOpacity
               className={`rounded-xl py-4 mt-8 ${
-                loginForm.formState.isValid ? "bg-blue-600" : "bg-gray-300"
+                signupForm.formState.isValid ? "bg-blue-600" : "bg-gray-300"
               }`}
-              //disabled={!loginForm.formState.isValid}
-              //onPress={loginForm.handleSubmit(handleSubmit)} // agora chama a função
+              //disabled={!signupForm.formState.isValid}
+              //onPress={signupForm.handleSubmit(handleSubmit)} // agora chama a função
             >
               <Text className="text-white font-bold text-center text-base">
                 {"Entrar"}
@@ -252,16 +296,9 @@ export default function LoginScreen() {
             </View>
 
             <View className="flex-row justify-center mt-5">
-              <Text className="text-base text-gray-700 mr-1">
-                Não tem uma conta?
-              </Text>
-              <TouchableOpacity
-                onPress={handlerSignUpNavigation}
-                //  disabled={false}
-              >
-                <Text className="text-base font-bold text-blue-600">
-                  Cadastre-se
-                </Text>
+              <Text className="text-gray-700 mr-1">Já tem uma conta?</Text>
+              <TouchableOpacity onPress={handlerLoginNavigation}>
+                <Text className="text-blue-600 font-bold">Entrar</Text>
               </TouchableOpacity>
             </View>
           </View>
