@@ -1,6 +1,6 @@
 describe("Login Screen E2E", () => {
   beforeEach(() => {
-    cy.visit("/login");
+    cy.visit("/signup");
   });
 
   it("should show error for empty email", () => {

@@ -74,7 +74,7 @@ export default function LoginScreen() {
           showsVerticalScrollIndicator={false}
         >
           <View className="mt-16 mb-2">
-            <Text className="text-3xl font-bold text-gray-900 mb-2">
+            <Text  className="text-3xl font-bold text-gray-900 mb-2">
               Bem-vindo de volta
             </Text>
             <Text className="text-gray-500 font-poppins mb-2">
@@ -83,7 +83,7 @@ export default function LoginScreen() {
           </View>
 
           <View className="gap-6 mt-8">
-            <View className="mt-6">
+            <View >
               <Text className="text-gray-600 text-base font-bold">Email</Text>
               <Controller
                 control={loginForm.control}
@@ -131,7 +131,7 @@ export default function LoginScreen() {
               />
             </View>
 
-            <View className="mt-6">
+            <View >
               <Text className="text-gray-600 text-base font-poppins-medium font-bold mb-3">
                 Senha
               </Text>

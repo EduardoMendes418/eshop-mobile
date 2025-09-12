@@ -83,7 +83,7 @@ export default function SignUpScreen() {
           </View>
 
           <View className="gap-6 mt-8">
-            <View className="mt-6">
+            <View >
               <Text className="text-gray-600 text-base font-bold">Nome</Text>
               <Controller
                 control={signupForm.control}
@@ -127,7 +127,7 @@ export default function SignUpScreen() {
                 )}
               />
             </View>
-            <View className="mt-6">
+            <View >
               <Text className="text-gray-600 text-base font-bold">Email</Text>
               <Controller
                 control={signupForm.control}
@@ -175,7 +175,7 @@ export default function SignUpScreen() {
               />
             </View>
 
-            <View className="mt-6">
+            <View >
               <Text className="text-gray-600 text-base font-poppins-medium font-bold mb-3">
                 Senha
               </Text>
