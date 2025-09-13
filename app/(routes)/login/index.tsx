@@ -109,7 +109,7 @@ export default function LoginScreen() {
                         color={"#9CA3AF"}
                       />
                       <TextInput
-                        className="flex-1 ml-3 text-gray-800 font-poppins"
+                        className="flex-1 ml-3 text-gray-800 font-poppins py-3"
                         placeholder="Digite seu e-mail"
                         placeholderTextColor="#9CA3AF"
                         value={value}
@@ -131,7 +131,7 @@ export default function LoginScreen() {
             </View>
 
             <View>
-              <Text className="text-gray-600 text-base font-poppins-medium font-bold mb-3">
+              <Text className="text-gray-600 text-base font-poppins-medium font-bold ">
                 Senha
               </Text>
 
@@ -161,7 +161,7 @@ export default function LoginScreen() {
                           color="#9CA3AF"
                         />
                         <TextInput
-                          className="flex-1 ml-3 text-gray-800 font-poppins"
+                          className="flex-1 ml-3 text-gray-800 font-poppins py-3"
                           placeholder="Digite sua senha"
                           placeholderTextColor="#9CA3AF"
                           secureTextEntry={!showPassword}
