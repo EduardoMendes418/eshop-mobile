@@ -3,7 +3,7 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+
 import * as Facebook from "expo-auth-session/providers/facebook";
 import * as Google from "expo-auth-session/providers/google";
 import { router } from "expo-router";
@@ -27,7 +27,6 @@ interface LoginFormData {
 
 export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
-  const navigation = useNavigation();
 
   const loginForm = useForm<LoginFormData>({
     mode: "onChange",
@@ -74,7 +73,7 @@ export default function LoginScreen() {
           showsVerticalScrollIndicator={false}
         >
           <View className="mt-16 mb-2">
-            <Text  className="text-3xl font-bold text-gray-900 mb-2">
+            <Text className="text-3xl font-bold text-gray-900 mb-2">
               Bem-vindo de volta
             </Text>
             <Text className="text-gray-500 font-poppins mb-2">
@@ -83,7 +82,7 @@ export default function LoginScreen() {
           </View>
 
           <View className="gap-6 mt-8">
-            <View >
+            <View>
               <Text className="text-gray-600 text-base font-bold">Email</Text>
               <Controller
                 control={loginForm.control}
@@ -110,7 +109,7 @@ export default function LoginScreen() {
                         color={"#9CA3AF"}
                       />
                       <TextInput
-                        className="flex-1 ml-3 text-gray-800 font-poppins"
+                        className="flex-1 ml-3 text-gray-800 font-poppins py-3"
                         placeholder="Digite seu e-mail"
                         placeholderTextColor="#9CA3AF"
                         value={value}
@@ -131,8 +130,8 @@ export default function LoginScreen() {
               />
             </View>
 
-            <View >
-              <Text className="text-gray-600 text-base font-poppins-medium font-bold mb-3">
+            <View>
+              <Text className="text-gray-600 text-base font-poppins-medium font-bold ">
                 Senha
               </Text>
 
@@ -162,7 +161,7 @@ export default function LoginScreen() {
                           color="#9CA3AF"
                         />
                         <TextInput
-                          className="flex-1 ml-3 text-gray-800 font-poppins"
+                          className="flex-1 ml-3 text-gray-800 font-poppins py-3"
                           placeholder="Digite sua senha"
                           placeholderTextColor="#9CA3AF"
                           secureTextEntry={!showPassword}

@@ -83,7 +83,7 @@ export default function SignUpScreen() {
           </View>
 
           <View className="gap-6 mt-8">
-            <View >
+            <View>
               <Text className="text-gray-600 text-base font-bold">Nome</Text>
               <Controller
                 control={signupForm.control}
@@ -110,7 +110,7 @@ export default function SignUpScreen() {
                         color={"#9CA3AF"}
                       />
                       <TextInput
-                        className="flex-1 ml-3 text-gray-800 font-poppins"
+                        className="flex-1 ml-3 text-gray-800 font-poppins py-3"
                         placeholder="Digite seu nome"
                         placeholderTextColor="#9CA3AF"
                         value={value}
@@ -127,7 +127,7 @@ export default function SignUpScreen() {
                 )}
               />
             </View>
-            <View >
+            <View>
               <Text className="text-gray-600 text-base font-bold">Email</Text>
               <Controller
                 control={signupForm.control}
@@ -154,7 +154,7 @@ export default function SignUpScreen() {
                         color={"#9CA3AF"}
                       />
                       <TextInput
-                        className="flex-1 ml-3 text-gray-800 font-poppins"
+                        className="flex-1 ml-3 text-gray-800 font-poppins py-3"
                         placeholder="Digite seu e-mail"
                         placeholderTextColor="#9CA3AF"
                         value={value}
@@ -175,8 +175,8 @@ export default function SignUpScreen() {
               />
             </View>
 
-            <View >
-              <Text className="text-gray-600 text-base font-poppins-medium font-bold mb-3">
+            <View>
+              <Text className="text-gray-600 text-base font-poppins-medium font-bold ">
                 Senha
               </Text>
 
@@ -206,7 +206,7 @@ export default function SignUpScreen() {
                           color="#9CA3AF"
                         />
                         <TextInput
-                          className="flex-1 ml-3 text-gray-800 font-poppins"
+                          className="flex-1 ml-3 text-gray-800 font-poppins py-3"
                           placeholder="Digite sua senha"
                           placeholderTextColor="#9CA3AF"
                           secureTextEntry={!showPassword}
@@ -238,15 +238,6 @@ export default function SignUpScreen() {
                   );
                 }}
               />
-              <TouchableOpacity
-                className="self-end mt-2"
-                onPress={() => router.push("/forgot-password")}
-                //disabled={loginMutation.isPending}
-              >
-                <Text className="text-blue-600 font-bold">
-                  Esqueceu sua senha?
-                </Text>
-              </TouchableOpacity>
             </View>
 
             <TouchableOpacity
